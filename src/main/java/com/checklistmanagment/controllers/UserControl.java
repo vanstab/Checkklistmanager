@@ -5,13 +5,15 @@
  */
 package com.checklistmanagment.controllers;
 
-import com.checklistmanagment.database.Table;
-import com.checklistmanagment.database.Task;
-import com.checklistmanagment.database.controller.DatabaseController;
+import com.checklistmanagment.database.entity.Task;
+import com.checklistmanagment.database.entity.User;
+import com.checklistmanagment.database.controller.UserRepository;
 import java.util.logging.Logger;
-import javafx.util.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 /**
  *
@@ -21,12 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/user")
 public class UserControl {
-
-    private static final Logger LOGGER = Logger.getLogger(UserControl.class.getName());
     
-    @RequestMapping(value = "/test")
-    public String test(){
-        return "dubble yup";
+    private static final Logger LOGGER = Logger.getLogger(UserControl.class.getName());
+    @Autowired
+    private UserRepository userRepository;
+    @GetMapping(value = "/test")
+    public @ResponseBody Iterable<User> test(){
+        return userRepository.findAll();
     }
     @RequestMapping(value="/account")
     public Task[] getAccountData(@RequestParam(value="username")String user) {
