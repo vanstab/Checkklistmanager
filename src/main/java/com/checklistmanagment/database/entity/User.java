@@ -8,7 +8,11 @@ package com.checklistmanagment.database.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 /**
@@ -22,6 +26,13 @@ public class User implements UserDetails {
     private String user_name;
     private String password;
     private String name; 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "authorities",
+            joinColumns = @JoinColumn(name = "user_name"),
+            inverseJoinColumns = @JoinColumn(name = "authority")
+    )
+    private Collection<Role> authorities;
     public User(){
         super();
     }
@@ -57,7 +68,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+       return authorities;
     }
 
 

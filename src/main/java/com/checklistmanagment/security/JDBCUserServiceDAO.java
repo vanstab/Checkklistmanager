@@ -24,7 +24,5 @@ public class JDBCUserServiceDAO implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findById(username).get();
-    }
-    
-    
+    }    
 }

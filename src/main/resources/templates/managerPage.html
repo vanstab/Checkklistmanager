@@ -30,7 +30,7 @@ and open the template in the editor.
         <div class="sideMenu">
              <ul>
                 <li><a  th:href="@{/}">View tasks</a></li>
-                <li><a  th:href="@{/managerPage}">Management</a></li>
+                <li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/managerPage}">Management</a></li>
             </ul>
         </div>
         <div class="errorHandler" id="errorHandler"></div>
