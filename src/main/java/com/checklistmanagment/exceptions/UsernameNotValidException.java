@@ -9,9 +9,9 @@ package com.checklistmanagment.exceptions;
  *
  * @author Benjamin
  */
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String username){
-        super("Failed to find " +username+ ".");
+public class UsernameNotValidException extends Exception {
+    public UsernameNotValidException(String username){
+        super(username+ " is not a email address. Please enter in a valid email.");
     }
     
 }

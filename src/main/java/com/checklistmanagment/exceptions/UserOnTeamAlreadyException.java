@@ -9,9 +9,9 @@ package com.checklistmanagment.exceptions;
  *
  * @author Benjamin
  */
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String username){
-        super("Failed to find " +username+ ".");
+public class UserOnTeamAlreadyException extends Exception {
+    public UserOnTeamAlreadyException(String name, String team,String manager_name){
+       super(name+" is already on " + team + ". Please contact their current manager "+ manager_name+ ", if user has changed teams");
     }
     
 }

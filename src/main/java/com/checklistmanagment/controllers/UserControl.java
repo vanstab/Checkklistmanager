@@ -5,38 +5,41 @@
  */
 package com.checklistmanagment.controllers;
 
-import com.checklistmanagment.database.entity.Task;
 import com.checklistmanagment.database.entity.User;
 import com.checklistmanagment.database.controller.UserRepository;
+import com.checklistmanagment.exceptions.EmptyFieldsException;
+import com.checklistmanagment.exceptions.UsernameExsistException;
+import com.checklistmanagment.exceptions.UsernameNotValidException;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.validator.EmailValidator;
 /**
  *
  * @author Benjamin
  */
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/account")
 public class UserControl {
     
     private static final Logger LOGGER = Logger.getLogger(UserControl.class.getName());
     @Autowired
     private UserRepository userRepository;
-    @GetMapping(value = "/test")
-    public @ResponseBody Iterable<User> test(){
-        return userRepository.findAll();
-    }
-    @RequestMapping(value="/account")
-    public Task[] getAccountData(@RequestParam(value="username")String user) {
-        //DatabaseController dbControl = new DatabaseController();
-        //Pair[] keys= {new Pair(SQLUser.primaryKeyUsername,"username"),new Pair(SQLUser.primaryKeyPassword,"password")} ;
-        //dbControl.getObjectFromTable(SQLUser.tableName, keys);
-        return null;
+    @PostMapping(value = "/new")
+    public boolean newUser(User user) throws UsernameNotValidException, UsernameExsistException, EmptyFieldsException{
+        if(!EmailValidator.getInstance().isValid(user.getUsername()))throw new UsernameNotValidException(user.getUsername());
+        if(userRepository.findById(user.getUsername()).isPresent())  throw new UsernameExsistException(user.getUsername());
+        if(user.getPassword().isEmpty() || user.getName().isEmpty()) throw new EmptyFieldsException();
+        
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        user.setPassword(bcrypt.encode(user.getPassword()));
+        userRepository.save(user);
+        LOGGER.info("New user added: " + user.getUsername());
+        return true;
     }
 
     public void updataData() {

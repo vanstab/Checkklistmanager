@@ -7,6 +7,7 @@ package com.checklistmanagment.database.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,7 +18,7 @@ import javax.persistence.Id;
 public class Position {
    
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int position_Id;
     private String position_name;
     private String team_name;

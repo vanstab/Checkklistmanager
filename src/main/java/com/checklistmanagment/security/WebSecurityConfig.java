@@ -9,7 +9,6 @@ import com.checklistmanagment.database.controller.UserRepository;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,7 +23,6 @@ import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHtt
  *
  * @author Benjamin
  */
-@Configuration
 @EnableWebSecurity
 @EnableJdbcHttpSession
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -46,22 +44,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JDBCUserServiceDAO(userRepo);
     }
 
+ 
     
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         
         
         http
-                .authorizeRequests()
+                .authorizeRequests()            
+                    .antMatchers("/account/new").permitAll()
+                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/js/**").permitAll()
+                    .antMatchers("/images/**").permitAll()
                     .antMatchers("/tasks/**").authenticated()
-                    .antMatchers("/adnmin/**").authenticated()
+                    .antMatchers("/admin/**").authenticated()
                     .antMatchers("/user/**").authenticated()
                     .antMatchers("/manage/**").authenticated()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
+                    .loginPage("/login")
+                    //.successHandler(new CustomAuthenticationSuccessHandler("/html/index.html"))
+                    //.loginProcessingUrl("/login")
+                    //.successForwardUrl("/html/index.html")
                     .permitAll()
-                    //.successHandler(new CustomAuthenticationSuccessHandler())
                     .and()
                 //.addFilterBefore(getFilter(), SessionRepositoryFilter.class)
                 .logout()
@@ -69,8 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .sessionManagement()
                     .maximumSessions(1)
-                    .expiredUrl("/logout?expired")
-                ;
+                    .expiredUrl("/logout?expired");
         
     }
     
@@ -78,6 +83,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+           
+ 
+    
+  //  @Bean
+   // public UrlBasedViewResolver urlBasedViewResolver(){
+     //   UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+      //  resolver.setSuffix(".html");
+       // return resolver;
+   // }
+    
    // @Bean
    // public SessionRepositoryFilter getFilter(){
     //    return new SessionRepositoryFilter(repository);

@@ -7,6 +7,7 @@ package com.checklistmanagment.database.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -20,13 +21,15 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({
     @NamedQuery(name="Userposition.findByUsername", query="select usrp from Userposition usrp where usrp.user.user_name=?1"),
-    @NamedQuery(name="Userposition.findByManagername", query="select usrp.user.name,usrp.user.user_name, usrp.position from Userposition usrp where usrp.manager.user_name=?1"),
-    @NamedQuery(name="Userposition.findByManagernameAndPostionId", query="select usrp from Userposition usrp where usrp.manager.user_name=?1 AND usrp.position.position_Id=?2")
+    @NamedQuery(name="Userposition.findByManagername", query="select NEW com.checklistmanagment.database.entity.Userposition(usrp.user.name,usrp.user.user_name, usrp.position) from Userposition usrp where usrp.manager.user_name=?1"),
+    @NamedQuery(name="Userposition.findByManagernameAndPostionId", query="select NEW com.checklistmanagment.database.entity.Userposition(usrp.user.name,usrp.user.user_name, usrp.position, usrp.id) from Userposition usrp where usrp.manager.user_name=?1 AND usrp.position.position_Id=?2")
 
 })
+ 
+
 public class Userposition {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     @OneToOne
     @JoinColumn(name="user_name")
@@ -38,6 +41,21 @@ public class Userposition {
     @JoinColumn(name="position_Id")
     private Position position;
     
+    public Userposition(){
+        super();
+    }
+    public Userposition(String name,String user_name, Position position){
+        super();
+        this.user = new User(user_name,name);
+        this.position=position;
+    }
+    public Userposition(String name,String user_name, Position position, int id){
+        super();
+        this.user = new User(user_name,name);
+        this.position=position;
+        this.id=id;
+    }    
+
     public User getUser(){
         return this.user;
     }

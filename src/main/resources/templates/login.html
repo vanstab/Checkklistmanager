@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login</title>
+    <link th:href="@{/css/login.css}" type="text/css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+  </head>
+  <body>
+    <div class="errorHandler" id="errorHandler"></div>    
+    <div class="successHandler" id="successHandler"></div>
+    <div th:fragment="content" class="toggles">
+        <form name="f" th:action="@{/login}" method="post">               
+            <fieldset>
+                <legend>Login</legend>
+                <div th:if="${param.error}" class="alert alert-error">    
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username"/>        
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password"/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Log in</button>
+                    <a href="javascript:toggleView()">Register New Account</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div  class="hiddenSectionOnLoad toggles">
+          
+          <form id="register" name="register" th:action="@{/account/new}" method="post">               
+            
+              <legend>Create Account</legend>
+              <fieldset>
+                <div>
+                    <label for="newUserUsername">Username</label>
+                    <input type="text" id="newUserUsername" name="username"/>        
+                </div>
+                 <div>
+                    <label for="newUserName">Name</label>
+                    <input type="text" id="newUserName" name="name"/>        
+                </div>
+                <div>
+                    <label for="newUserPassword">Password</label>
+                    <input type="password" id="newUserPassword" name="password"/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Create Account</button>
+                    <a href="javascript:toggleView()">Go to Login</a>
+                </div>
+            </fieldset>
+        </form>
+      </div>
+   
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/generalFunctions.js}"></script>
+    </body>
+    
+</html>

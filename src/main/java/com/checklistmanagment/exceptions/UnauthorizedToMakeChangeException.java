@@ -9,9 +9,9 @@ package com.checklistmanagment.exceptions;
  *
  * @author Benjamin
  */
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String username){
-        super("Failed to find " +username+ ".");
+public class UnauthorizedToMakeChangeException extends Exception {
+    public UnauthorizedToMakeChangeException(String manager_name){
+       super( manager_name+" is not authorized to make change.");
     }
     
 }

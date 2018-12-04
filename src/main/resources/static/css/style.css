@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-Nov-2018, 1:23:40 PM
+    Author     : Benjamin
+*/
+.hiddenColumn {
+    display: none;
+}
+div.hiddenSectionOnLoad{
+    display:none;
+}
+div.errorHandler{
+    margin: 5px;
+    padding-right: 10px;
+    color: white;
+    background-color:#fd1100b8;
+    display: none;
+    z-index: 11;
+    position: fixed;
+    top: 28px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}
+div.sideMenu{
+    
+    border-right:2px solid black;
+    display: none;
+    padding-top: 40px;
+    background-color:#62c2ed;
+    position:fixed;
+    left: 0px;
+    width: 100px;
+    height: 100%;
+    z-index:9;
+    list-style:none;
+}
+
+div.menuBar{
+    padding: 5px;
+    border-bottom:2px solid black;
+    background-color:#62c2ed;
+    position: -webkit-sticky;
+    position:sticky;
+    top: 0px;
+    left: 0px;
+    z-index:10;
+    width: 100%;
+}
+ul.menuBar{
+    list-style:none;
+    margin: 0px;
+    padding:0px;
+    overflow:hidden;
+}
+.menuItem{
+    float:left;
+}
+body{
+    margin: 0px;
+    padding-right: 10px;
+}
+caption{
+    background-color:lightblue;
+    width:100%;
+    text-align: center;
+    font-weight: bold;
+}
+table{
+    max-width:750px;
+    width:100%;
+}
+.button{  
+    padding:5px; 
+    width: 20px;
+    height: 20px;
+}
+.logoutButton{
+    float:right;
+    padding:5px;
+    width: 20px;
+    height: 20px;
+}
+
+#Details{
+    width:100%;
+}
+
+td.center{
+    text-align:center;
+}
+
+ul{
+    padding:10px;
+    list-style:none;
+    margin:0;    
+}
+td.checkbox{
+    padding:5px;
+    width: 25px;
+    text-align:center;
+}

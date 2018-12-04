@@ -16,11 +16,27 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Benjamin
  */
 @Entity
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
+    
     @Id
     private String user_name;
     private String password;
     private String name; 
+    public User(){
+        super();
+    }
+    public User(String user_name, String name){
+        super();
+        this.name=name;
+        this.user_name=user_name;
+    }
+    public String getName(){
+        return this.name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
     
     public String getUsername(){
         return this.user_name;

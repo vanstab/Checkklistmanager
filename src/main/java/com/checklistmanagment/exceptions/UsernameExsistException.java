@@ -9,9 +9,9 @@ package com.checklistmanagment.exceptions;
  *
  * @author Benjamin
  */
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String username){
-        super("Failed to find " +username+ ".");
+public class UsernameExsistException extends Exception {
+    public UsernameExsistException(String username){
+        super(username+ " already exsists!");
     }
     
 }

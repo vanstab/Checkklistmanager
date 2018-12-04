@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Checklist Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="_csrf" th:content="${_csrf.token}">
+        <meta name="_csrf_header" th:content="${_csrf.headerName}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="menuBar" id="menuBar">
+            <ul class="menuBar">
+                <li class="menuItem">
+                    <input id="sideMenu" type='image' th:src='@{/images/Hamburger.png}' class='button menuItem' onClick='viewMenu()'/>
+                </li>
+                <li class="menuItem" style="float:right">
+                    <form  id="logout" th:action="@{/logout}" method="post">
+                        <input  class="logoutButton menuItem" type="image" th:src="@{/images/logoutButton.png}" value="Sign Out"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <div class="sideMenu">
+             <ul>
+                <li><a  th:href="@{/}">View tasks</a></li>
+                <li><a  th:href="@{/managerPage}">Management</a></li>
+            </ul>
+        </div>
+        <div class="errorHandler" id="errorHandler"></div>
+
+        <table id="Team" class="teamTable">
+            <caption>Team</caption>
+            <thead>
+                <tr>
+                    <th class='hiddenColumn'>User Name</th>
+                    <th data-ignorAddRow='true' data-ignorAddRowPlaceholder='true'>Name</th>
+                    <th>Position</th>
+                    <th>Team Name</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="taskTablesDiv" data-positionId="null" class="hiddenSectionOnLoad">
+            <table id="Monday" class="taskTable">
+                <caption>Monday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Tuesday" class="taskTable">
+                <caption>Tuesday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Wednesday" class="taskTable">
+                <caption>Wednesday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Thursday" class="taskTable">
+                <caption>Thursday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Friday" class="taskTable">
+                <caption>Friday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Saturday" class="taskTable">
+                <caption>Saturday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="Sunday" class="taskTable">
+                <caption>Sunday</caption>
+                <thead>
+                    <tr>
+                        <th data-ignorAddRow='true' class='hiddenColumn' data-ignoraddrowplaceholder='true'>Complete</th>
+                        <th class='hiddenColumn' data-colspan='2'>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
+
+        <script th:inline="javascript">
+            var ctx = /*[[@{/}]]*/'';
+        </script>
+        <script th:src="@{/js/generalFunctions.js}"></script>
+        <script th:src="@{/js/manager.js}"></script>
+    </body>
+</html>

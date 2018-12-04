@@ -9,9 +9,9 @@ package com.checklistmanagment.exceptions;
  *
  * @author Benjamin
  */
-public class UserNotFoundException extends Exception {
-    public UserNotFoundException(String username){
-        super("Failed to find " +username+ ".");
+public class EmptyFieldsException extends Exception {
+    public EmptyFieldsException(){
+        super("Please fill in every field.");
     }
     
 }
